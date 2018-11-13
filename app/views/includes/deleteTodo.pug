@@ -1,0 +1,8 @@
+h2 Delete Todo
+form(method='POST' action='/api/todos/')
+    input(type='hidden' name='_method' value='DELETE')
+    label Todo ID
+    br
+    input(type='number' name='id')
+    br
+    input(type='submit' value='Submit')

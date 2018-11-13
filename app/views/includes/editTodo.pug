@@ -1,0 +1,16 @@
+h2 Edit Todo
+form(method='POST' action='/api/todos/')
+    input(type='hidden' name='_method' value='PUT')
+    label Todo ID
+    br
+    input(type='number' name='id')
+    br
+    label New Name
+    br
+    input(type='text' name='todo_name')
+    br
+    label Completed
+    br
+    input(type='text' name='completed' value=0)
+    br
+    input(type='submit' value='Submit')

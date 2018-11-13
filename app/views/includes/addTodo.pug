@@ -1,0 +1,8 @@
+h2 Add Todo
+form(method='POST' action='/api/todos/')
+    input(type='hidden' name='_method' value='POST')
+    label Todo name
+    br
+    input(type='text' name='todo_name')
+    br
+    input(type='submit' value='Submit')

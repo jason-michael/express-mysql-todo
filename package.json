@@ -1,0 +1,28 @@
+{
+  "name": "express-mysql-todo",
+  "version": "1.0.0",
+  "description": "Simple Todo app using Express, MySQL, and EJS.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "watch": "nodemon server.js",
+    "dbreset": "cd app/db && mysql --user root --password=root < source.txt && echo Database reset/reseeded."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jason-michael/express-mysql-todo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jason-michael/express-mysql-todo/issues"
+  },
+  "homepage": "https://github.com/jason-michael/express-mysql-todo#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "mysql": "^2.16.0",
+    "pug": "^2.0.3"
+  }
+}
