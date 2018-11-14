@@ -1,11 +1,21 @@
 h4 <strong>Incomplete</strong>
+br
 ul#incompletes.todoList.inompleteList
-    each val in todos
-        if !val.completed
-            include todoItem.pug
+    if todos.length
+        each val in todos
+            if !val.completed
+                include todoItem.pug
+    else
+        p No todos yet.
+
+br
 
 h4 <strong>Complete</strong>
-ul.todoList.completedList
-    each val in todos
-        if val.completed
-            include todoItem.pug
+br
+ul#completes.todoList.completedList
+    if todos.length
+        each val in todos
+            if val.completed
+                include todoItem.pug
+    else
+        p No completed todos.

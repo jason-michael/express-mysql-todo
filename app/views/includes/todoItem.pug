@@ -1,8 +1,9 @@
-if (val.completed)
-    - var symbol= '☑'
-else
-    - var symbol= '☐'
-
-li.todoItem
-    p.checkbox= symbol
-    p.todoName= val.todo_name
+li.todoItem.field.has-addons
+    .control
+        button.button.toggleBtn
+            i.far.fa-square
+    .control.is-expanded
+        button.nameBtn.button.is-fullwidth= val.todo_name
+    .control
+        button.button.deleteBtn(todoId=`${val.id}`)
+            i.fas.fa-times

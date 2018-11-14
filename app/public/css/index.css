@@ -1,12 +1,20 @@
 .container {
-    max-width: 1000px;
+    width: 50vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-.todoItem p {
-    display: inline;
-    margin: 0 6px;
+#newTodoField {
+    width: 400px;
 }
 
-.todoItem p:hover {
-    cursor: pointer;
+.nameBtn {
+    justify-content: flex-start;
+}
+
+.todoItem {
+    width: 400px;
+    margin-bottom: 4px !important;
 }
