@@ -1,19 +1,11 @@
 const orm = require('../config/orm');
 
 module.exports = {
-    getAll: (cb) => {
-        orm.selectAllFrom('todos', todos => cb(todos));
-    },
+    add: (todo, callback) => orm.insertOne('todos', todo, callback),
 
-    add: (name, cb) => {
-        orm.insertOne('todos', {todo_name: name}, res => cb(res));
-    },
+    delete: (id, callback) => orm.deleteOne('todos', id, callback),
 
-    update: (todo, cb) => {
-        orm.updateOne('todos', todo, res => cb(res));
-    },
+    getAll: (callback) => orm.selectAllFrom('todos', callback),
 
-    delete: (id, cb) => {
-        orm.deleteOne('todos', id, res => cb(res));
-    }
+    update: (todo, callback) => orm.updateOne('todos', todo, callback),
 }

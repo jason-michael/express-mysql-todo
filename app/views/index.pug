@@ -3,15 +3,16 @@ html(lang="en")
     include includes/head.pug
 
     body
-        include includes/todos.pug
-        hr
+        .container
+            include includes/header.pug
 
-        include includes/addTodo.pug
-        hr
+            include includes/addTodo.pug
+            hr
 
-        include includes/editTodo.pug
-        hr
+            include includes/todos.pug
 
-        include includes/deleteTodo.pug
+        //- jQuery
+        script(src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous")
 
-        script(src='js/index.js')
+        //- Public JS
+        script(type="text/javascript" src="/js/index.js")

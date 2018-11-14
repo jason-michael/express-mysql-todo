@@ -1,0 +1,12 @@
+.container {
+    max-width: 1000px;
+}
+
+.todoItem p {
+    display: inline;
+    margin: 0 6px;
+}
+
+.todoItem p:hover {
+    cursor: pointer;
+}

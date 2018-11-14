@@ -10,7 +10,7 @@ const connection = mysql.createConnection({
 
 connection.connect(function (err) {
     if (err) throw err;
-    console.log(`--> Connected to 'todos_db' as ID ${connection.threadId}.`);
+    console.log(`--> Connected to 'todos_db' as ID ${connection.threadId}`);
 });
 
 module.exports = connection;

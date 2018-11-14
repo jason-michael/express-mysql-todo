@@ -12,12 +12,14 @@ app.set('views', path.join(__dirname, 'app/views'));
 app.set('view engine', 'pug');
 
 // Public assets
-app.use(express.static(path.join(__dirname, 'app/public')));
+app.use(express.static(path.join(__dirname, '/app/public')));
 
 // Middleware
-app.use(express.urlencoded({extended:true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(router);
 
 // Listen
-app.listen(PORT, () => console.log(`--> Server running on localhost:${PORT}.`));
+app.listen(PORT, () => {
+    console.log(`--> Server running on http://localhost:${PORT}/`);
+});

@@ -1,0 +1,8 @@
+if (val.completed)
+    - var symbol= '☑'
+else
+    - var symbol= '☐'
+
+li.todoItem
+    p.checkbox= symbol
+    p.todoName= val.todo_name

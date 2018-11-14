@@ -1,4 +1,11 @@
-h2 Todos
-ul
+h4 <strong>Incomplete</strong>
+ul#incompletes.todoList.inompleteList
     each val in todos
-        li= val.id + ' ' + val.todo_name + ' | ' + val.completed
+        if !val.completed
+            include todoItem.pug
+
+h4 <strong>Complete</strong>
+ul.todoList.completedList
+    each val in todos
+        if val.completed
+            include todoItem.pug

@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "watch": "nodemon server.js",
-    "dbreset": "cd app/db && mysql --user root --password=root < source.txt && echo Database reset/reseeded."
+    "db": "cd app/db && mysql --user root --password=root < source.txt && echo Database reset/reseeded."
   },
   "repository": {
     "type": "git",
@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/jason-michael/express-mysql-todo#readme",
   "dependencies": {
+    "bulma": "^0.7.2",
     "express": "^4.16.4",
     "mysql": "^2.16.0",
     "pug": "^2.0.3"

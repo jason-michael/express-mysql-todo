@@ -1,45 +1,44 @@
+// Dependencies
 const Todo = require('../models/todo');
 const express = require('express');
 const router = express.Router();
 
+
+// Routes
+//--------------------------------------
+// Home view
 router.get('/', (req, res) => {
-    Todo.getAll(todos => {
+    Todo.getAll((err, data) => {
         res.render('index', {
-            todos
+            todos: data
         });
     });
 });
 
-router.get('/api/todos', (req, res) => {
-    Todo.getAll(todos => res.json(todos));
+// Get all
+router.get('/api/all', (req, res) => {
+    Todo.getAll((err, data) => {
+        res.json(data);
+    });
 });
 
+// Add new
+router.post('/api/add', (req, res) => {
 
-// Unwrap all post requests to 'api/todos'.
-router.post('/api/todos/*', (req, res) => {
-    const method = req.body._method;
+    if (req.body.todo_name.trim() === '') {
+        res.statusMessage = 'Todo name is required.';
+        res.status(400).end();
+    } else {
 
-    switch (method) {
-        case 'PUT':
-            const updatedTodo = {
-                id: req.body.id,
-                todo_name: req.body.todo_name,
-                completed: req.body.completed
-            };
-            Todo.update(updatedTodo, result => console.log(result));
-            break;
-
-        case 'DELETE':
-            Todo.delete(req.body.id, result => console.log(result));
-            break;
-
-        default:
-            Todo.add(req.body.todo_name, result => console.log(result));
-            break;
+        Todo.add(req.body, (err, data) => {
+            if (err) {
+                res.sendStatus(500);
+            } else {
+                res.json(data);
+            }
+        });
     }
 
-    res.redirect('/');
-    res.end();
 });
 
 module.exports = router;
