@@ -1,5 +1,6 @@
 INSERT INTO todos
-    (todo_name)
+    (task)
 VALUES
-    ('Finish homework'),
-    ('Get routes working');
+    ('Finish routing'),
+    ('Add server-side validation'),
+    ('Improve error handling');

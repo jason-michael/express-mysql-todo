@@ -6,15 +6,73 @@
     align-items: center;
 }
 
+hr {
+    height: 1px;
+    background: #eee;
+    width: 400px;
+}
+
+#addTodoBtn {
+    background: #ccc;
+    color: #222;
+    transition: .3s;
+}
+
+#addTodoBtn:hover {
+    background: #222;
+    color: #ccc;
+}
+
+.taskControl {
+    position: relative;
+}
+
+.editTask {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    padding: 0 10px;
+    font-size: 1rem;
+    display: none;
+}
+
 #newTodoField {
     width: 400px;
 }
 
-.nameBtn {
+.taskBtn {
     justify-content: flex-start;
 }
 
 .todoItem {
     width: 400px;
     margin-bottom: 4px !important;
+}
+
+.toggleBtn,
+.taskBtn,
+.deleteBtn {
+    transition: .3s;
+}
+
+.todoItem[tododone="1"] .toggleBtn {
+    background: #ccc;
+    color: #222;
+}
+
+.todoItem .toggleBtn:hover {
+    background: #222;
+    color: #ccc;
+}
+
+.taskBtn:hover {
+    color: #999;
+    background: #eee;
+    cursor: text;
+}
+
+.deleteBtn:hover {
+    background: firebrick;
+    color: white;
 }

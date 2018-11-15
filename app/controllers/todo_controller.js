@@ -5,8 +5,7 @@ const router = express.Router();
 
 
 // Routes
-//--------------------------------------
-// Home view
+
 router.get('/', (req, res) => {
     Todo.getAll((err, data) => {
         res.render('index', {
@@ -15,21 +14,14 @@ router.get('/', (req, res) => {
     });
 });
 
-// Get all
 router.get('/api/all', (req, res) => {
-    Todo.getAll((err, data) => {
-        res.json(data);
-    });
+    Todo.getAll((err, data) => res.json(data));
 });
 
-// Add new
 router.post('/api/add', (req, res) => {
 
-    /*
-        - If todo name is empty send an error back.
-        - Else add the todo.
-    */
-    if (req.body.todo_name.trim() === '') {
+    // If todo name is empty send an error back.
+    if (req.body.task.trim() === '') {
         res.statusMessage = 'Todo name is required.';
         res.status(400).end();
     } else {
@@ -45,12 +37,18 @@ router.post('/api/add', (req, res) => {
 });
 
 router.delete('/api/delete/:id', (req, res) => {
-
     // TODO: validate id & handle error
+    Todo.delete(req.params.id, (err, data) => res.json(data));
+});
 
-    Todo.delete(req.params.id, (err, data) => {
-        res.json(data)
-    });
+router.put('/api/update', (req, res) => {
+
+    // Convert id from string to ints.
+    // TODO: parse int on client
+    const todoToUpdate = req.body;
+    todoToUpdate.id = parseInt(todoToUpdate.id);
+
+    Todo.update(todoToUpdate, (err, data) => res.json(data));
 });
 
 module.exports = router;
