@@ -1,15 +1,16 @@
 const mysql = require('mysql');
 
-const connection = mysql.createConnection({
-    host: 'localhost',
-    port: 3306,
-    user: 'root',
-    password: 'root',
-    database: 'todos_db',
-});
+const config = {
+    host: 'us-cdbr-iron-east-01.cleardb.net',
+    user: 'b661e35d1515b8',
+    password: '5d083f0f',
+    database: 'heroku_cb4cbc431b7d8d6',
+}
 
-connection.connect(function (err) {
-    if (err) throw err;
+let connection;
+connection = mysql.createConnection(config);
+connection.connect(err => {
+    if(err) throw err;
     console.log(`--> Connected to 'todos_db' as ID ${connection.threadId}`);
 });
 
