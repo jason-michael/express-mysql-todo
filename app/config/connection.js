@@ -10,8 +10,11 @@ const config = {
 let connection;
 connection = mysql.createConnection(config);
 connection.connect(err => {
-    if(err) throw err;
-    console.log(`--> Connected to 'todos_db' as ID ${connection.threadId}`);
+    if (err) {
+        console.log('DB disconnected: ', err);
+    } else {
+        console.log(`--> Connected to 'todos_db' as ID ${connection.threadId}`);
+    }
 });
 
 module.exports = connection;
