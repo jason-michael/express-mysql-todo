@@ -8,22 +8,29 @@ const config = {
 }
 
 let connection;
-function attemptConnection() {
-    console.log('--> Connecting to Express Todo ClearDB...');
+(function handleDisconnect() {
+    console.log('--> Connecting to database...');
     connection = mysql.createConnection(config);
+
     connection.connect(err => {
         if (err) {
-            console.log('--> Disconnected from DB: ', err);
-            setTimeout(attemptConnection, 2000);
+            console.log('--> Error connecting to database:', err);
+            setTimeout(handleDisconnect, 2000);
         }
     });
 
-    connection.on('error', attemptConnection);
-    connection.on('connect', () => {
-        console.log(`--> Connected to database '${connection.config.database}'.`);
+    connection.on('error', err => {
+        console.log('--> Database error: ', err);
+        if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+            handleDisconnect();
+        } else {
+            throw err;
+        }
     });
-}
 
-attemptConnection();
+    connection.on('connect', () => {
+        console.log(`--> Connected to database '${connection.config.database}'.`)
+    });
+})()
 
 module.exports = connection;
