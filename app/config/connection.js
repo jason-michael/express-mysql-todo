@@ -8,13 +8,22 @@ const config = {
 }
 
 let connection;
-connection = mysql.createConnection(config);
-connection.connect(err => {
-    if (err) {
-        console.log('DB disconnected: ', err);
-    } else {
-        console.log(`--> Connected to 'todos_db' as ID ${connection.threadId}`);
-    }
-});
+function attemptConnection() {
+    console.log('--> Connecting to Express Todo ClearDB...');
+    connection = mysql.createConnection(config);
+    connection.connect(err => {
+        if (err) {
+            console.log('--> Disconnected from DB: ', err);
+            setTimeout(attemptConnection, 2000);
+        }
+    });
+
+    connection.on('error', attemptConnection);
+    connection.on('connect', () => {
+        console.log(`--> Connected to database '${connection.config.database}'.`);
+    });
+}
+
+attemptConnection();
 
 module.exports = connection;
