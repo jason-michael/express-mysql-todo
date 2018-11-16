@@ -19,6 +19,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(router);
 
+// Redirect to home on bad route.
+app.get('*', (req, res) => res.redirect('/'));
+
 // Listen
 app.listen(PORT, () => {
     console.log(`--> Server running on http://localhost:${PORT}/`);
