@@ -37,18 +37,11 @@ router.post('/api/add', (req, res) => {
 });
 
 router.delete('/api/delete/:id', (req, res) => {
-    // TODO: validate id & handle error
     Todo.delete(req.params.id, (err, data) => res.json(data));
 });
 
 router.put('/api/update', (req, res) => {
-
-    // Convert id from string to ints.
-    // TODO: parse int on client
-    const todoToUpdate = req.body;
-    todoToUpdate.id = parseInt(todoToUpdate.id);
-
-    Todo.update(todoToUpdate, (err, data) => res.json(data));
+    Todo.update(req.body, (err, data) => res.json(data));
 });
 
 module.exports = router;

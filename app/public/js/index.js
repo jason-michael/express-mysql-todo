@@ -1,3 +1,6 @@
+// Initialization
+getTodos();
+
 //======================================
 // FUNCTIONS
 //======================================
@@ -63,7 +66,8 @@ function getTodos() {
 //======================================
 // EVENT LISTENERS
 //======================================
-// TODO: refactor listeners
+// TODO: refactor listeners with handler funcs
+
 // Add new todo
 $('#addTodoBtn').on('click', () => {
     const newTodo = {
@@ -76,31 +80,31 @@ $('#addTodoBtn').on('click', () => {
         .catch(err => alert(err.statusText));
 });
 
+
 // Toggle todo
 $(document).on('click', '.toggleBtn', function () {
     const parent = $(this).parent().parent();
 
-    const done = ($(parent).attr('tododone') == 1) ? 0:1;
-
-    const todo = {
-        id: $(parent).attr('todoid'),
-        task: $(parent).attr('todoname'),
-        done,
-    }
-
     $.ajax({
             type: 'PUT',
             url: '/api/update',
-            data: todo,
+            data: {
+                id: $(parent).attr('todoid'),
+                task: $(parent).attr('todoname'),
+                done: ($(parent).attr('tododone') == 1) ? 0 : 1, // Toggle 0 and 1
+            },
         })
         .done(() => getTodos())
         .catch(err => alert(err.statusText));
 });
 
+
 // Delete todo
 $(document).on('click', '.deleteBtn', function () {
     const parent = $(this).parent().parent();
     const idToDelete = $(parent).attr('todoId');
+
+    if (!idToDelete) return;
 
     $.ajax({
             type: 'DELETE',
@@ -111,36 +115,33 @@ $(document).on('click', '.deleteBtn', function () {
         .catch(err => alert(err.statusText));
 });
 
+
+// Show edit box
 $(document).on('click', '.taskBtn', function () {
-    const editInput = $(this).next();
+    const taskInput = $(this).next();
+    $(taskInput).show().focus();
     $(this).hide();
-    editInput.show().focus();
 });
 
+
+// Hide edit box, update task
 $(document).on('blur', '.editTask', function () {
-
-    // TODO: should only send request if new task is different than original task.
-
-    // TODO: should work on keyup[enter] too. (will be easy if all this was put into fn)
-
-    // UI
-    $(this).prev().show();
+    $(this).prev().show(); // Task button
     $(this).hide();
 
     const parent = $(this).parent().parent();
-    const updatedTodo = {
-        id: $(parent).attr('todoid'),
-        task: $(this).val().trim(),
-        done: $(parent).attr('tododone'),
-    }
+    const updatedTask = $(this).val().trim();
+    const originalTask = $(parent).attr('todotask');
+    const done = $(parent).attr('tododone');
+    const id = parseInt($(parent).attr('todoid'));
+
+    if (updatedTask === originalTask) return;
 
     $.ajax({
             type: 'PUT',
             url: '/api/update',
-            data: updatedTodo,
+            data: { id, task: updatedTask, done }
         })
         .done(() => getTodos())
         .catch(err => alert(err.statusText));
 });
-
-getTodos();
