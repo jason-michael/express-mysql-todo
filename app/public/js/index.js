@@ -117,11 +117,6 @@ $(document).on('click', '.taskBtn', function () {
     editInput.show().focus();
 });
 
-$(document).on('focus', '.editTask', function () {
-    const parent = $(this).parent().parent();
-    console.log($(parent).attr('todotask'))
-});
-
 $(document).on('blur', '.editTask', function () {
 
     // TODO: should only send request if new task is different than original task.

@@ -1,36 +1,25 @@
 const mysql = require('mysql');
+let connection;
 
-const config = {
-    host: 'us-cdbr-iron-east-01.cleardb.net',
-    user: 'b661e35d1515b8',
-    password: '5d083f0f',
-    database: 'heroku_cb4cbc431b7d8d6',
+if(process.env.JAWSDB_URL) {
+    connection = mysql.createConnection(process.env.JAWSDB_URL);
+} else {
+    connection = mysql.createConnection({
+        host: 'localhost',
+        user: 'root',
+        password: 'root',
+        database: 'todos_db'
+    });
 }
 
-let connection;
-(function handleDisconnect() {
-    console.log('--> Connecting to database...');
-    connection = mysql.createConnection(config);
+connection.on('connect', () => {
+    console.log(`--> Connected to database '${connection.config.database}'.`);
+});
 
-    connection.connect(err => {
-        if (err) {
-            console.log('--> Error connecting to database:', err);
-            setTimeout(handleDisconnect, 2000);
-        }
-    });
+connection.on('error', err => {
+    console.log('--> Connection error: ', err);
+});
 
-    connection.on('error', err => {
-        console.log('--> Database error: ', err);
-        if (err.code === 'PROTOCOL_CONNECTION_LOST') {
-            handleDisconnect();
-        } else {
-            throw err;
-        }
-    });
-
-    connection.on('connect', () => {
-        console.log(`--> Connected to database '${connection.config.database}'.`)
-    });
-})()
+connection.connect();
 
 module.exports = connection;
