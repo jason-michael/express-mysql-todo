@@ -1,93 +1,10 @@
-//============================
-// INITIALIZATION
-//============================
-
-getTodos();
-
-
-//============================
-// FETCHING & RENDERING
-//============================
-
-function getTodos() {
-    getCompletedTodos();
-    getIncompleteTodos();
-}
-
-function getIncompleteTodos() {
-    const incompleteList = $('#incompletes');
-    let incompleteTodos = [];
-
-    $.get('/api/incomplete', data => {
-            incompleteTodos = data;
-        })
-        .done(() => {
-            incompleteList.empty();
-
-            if (!incompleteTodos.length) {
-                incompleteList.append('<p>Nothing to do yet.</p>');
-            }
-
-            $.each(incompleteTodos, (index, todo) => {
-                incompleteList.append(createTodoElem(todo));
-            });
-        })
-        .catch(err => {
-            alert(err.statusText);
-        });
-}
-
-function getCompletedTodos() {
-    const completeList = $('#completes');
-    let completedTodos = [];
-
-    $.get('/api/complete', data => {
-            completedTodos = data;
-        })
-        .done(() => {
-            completeList.empty();
-
-            if (!completedTodos.length) {
-                completeList.append('<p>Nothing completed yet.</p>');
-            }
-
-            $.each(completedTodos, (index, todo) => {
-                completeList.append(createTodoElem(todo));
-            });
-        })
-        .catch(err => {
-            alert(err.statusText);
-        });
-}
-
-function createTodoElem(todo) {
-    let iconClass = (todo.done) ? 'fa-check-square' : 'fa-square';
-    return $(`
-    <li class="todoItem field has-addons" todoid=${todo.id} todotask="${todo.task}" tododone=${todo.done}>
-        <div class="control">
-            <button class="button toggleBtn"}>
-                <i class="far ${iconClass}"></i>
-            </button>
-        </div>
-        <div class="control is-expanded taskControl">
-            <button class="taskBtn button is-fullwidth">${todo.task}</button>
-            <input class="editTask" type="text" value="${todo.task}">
-        </div>
-        <div class="control">
-            <button class="button deleteBtn">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-    </li>`);
-}
-
 //===========================
 // EVENT HANDLERS
 //===========================
 
 function addNewTodo(todo, callback) {
     $.post('/api/add', todo)
-        .done(callback())
+        .done(callback)
         .catch(err => alert(err.statusText));
 }
 
@@ -97,7 +14,7 @@ function deleteTodo(id, callback) {
             url: "/api/delete/" + id,
             data: id,
         })
-        .done(callback())
+        .done(callback)
         .catch(err => alert(err.statusText));
 }
 
@@ -107,7 +24,7 @@ function updateTodo(todo, callback) {
             url: '/api/update',
             data: todo
         })
-        .done(callback())
+        .done(callback)
         .catch(err => alert(err.statusText));
 }
 
@@ -123,7 +40,7 @@ $('#addTodoBtn').on('click', () => {
         task: $('#newTodoInput').val(),
         done: 0
     }
-    addNewTodo(newTodo, getTodos);
+    addNewTodo(newTodo, location.reload());
     $('#newTodoInput').val('');
 });
 
@@ -137,7 +54,7 @@ $('#newTodoInput').on('keyup', function (e) {
         task: $('#newTodoInput').val(),
         done: 0
     }
-    addNewTodo(newTodo, getTodos);
+    addNewTodo(newTodo, location.reload());
     $('#newTodoInput').val('');
 });
 
@@ -151,7 +68,7 @@ $(document).on('click', '.toggleBtn', function () {
         task: $(parent).attr('todoname'),
         done: ($(parent).attr('tododone') == 1) ? 0 : 1, // Toggle 0 and 1
     }
-    updateTodo(toggledTodo, getTodos);
+    updateTodo(toggledTodo, location.reload());
 });
 
 /**
@@ -163,7 +80,7 @@ $(document).on('click', '.deleteBtn', function () {
 
     if (!idToDelete) return;
 
-    deleteTodo(idToDelete, getTodos);
+    deleteTodo(idToDelete, location.reload());
 });
 
 /**
@@ -193,7 +110,7 @@ $(document).on('blur', '.editTask', function () {
 
     if (updatedTask === originalTask) return;
 
-    updateTodo(updatedTodo, getTodos);
+    updateTodo(updatedTodo, location.reload());
 });
 
 /**
@@ -216,5 +133,5 @@ $(document).on('keyup', '.editTask', function (e) {
 
     if (updatedTask === originalTask) return;
 
-    updateTodo(updatedTodo, getTodos);
+    updateTodo(updatedTodo, location.reload());
 });

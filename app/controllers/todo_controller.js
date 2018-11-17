@@ -14,8 +14,13 @@ const router = express.Router();
 router.get('/', (req, res) => {
     Todo.getAll((err, data) => {
         if (err) throw err;
+
+        const completedTodos = data.filter(todo => todo.done);
+        const incompleteTodos = data.filter(todo => !todo.done);
+
         res.render('index', {
-            todos: data
+            completedTodos,
+            incompleteTodos
         });
     });
 });
