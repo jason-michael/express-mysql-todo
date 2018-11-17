@@ -3,16 +3,16 @@
 //===========================
 
 function addNewTodo(todo, callback) {
-    $.post('/api/add', todo)
+    $.post('/todos', todo)
         .done(callback)
         .catch(err => alert(err.statusText));
 }
 
-function deleteTodo(id, callback) {
+function deleteTodo(todo, callback) {
     $.ajax({
             type: 'DELETE',
-            url: "/api/delete/" + id,
-            data: id,
+            url: "/todos",
+            data: todo,
         })
         .done(callback)
         .catch(err => alert(err.statusText));
@@ -21,7 +21,7 @@ function deleteTodo(id, callback) {
 function updateTodo(todo, callback) {
     $.ajax({
             type: 'PUT',
-            url: '/api/update',
+            url: '/todos',
             data: todo
         })
         .done(callback)
@@ -80,7 +80,7 @@ $(document).on('click', '.deleteBtn', function () {
 
     if (!idToDelete) return;
 
-    deleteTodo(idToDelete, location.reload());
+    deleteTodo({ id: idToDelete }, location.reload());
 });
 
 /**

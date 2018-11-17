@@ -28,28 +28,8 @@ router.get('/', (req, res) => {
 /**
  * API: all todos
  */
-router.get('/api/all', (req, res) => {
+router.get('/todos', (req, res) => {
     Todo.getAll((err, data) => {
-        if (err) throw err;
-        res.json(data);
-    });
-});
-
-/**
- * API: completed todos
- */
-router.get('/api/complete', (req, res) => {
-    Todo.getAllComplete((err, data) => {
-        if (err) throw err;
-        res.json(data);
-    });
-});
-
-/**
- * API: incompleted todos
- */
-router.get('/api/incomplete', (req, res) => {
-    Todo.getAllIncomplete((err, data) => {
         if (err) throw err;
         res.json(data);
     });
@@ -58,7 +38,7 @@ router.get('/api/incomplete', (req, res) => {
 /**
  * API: add todo
  */
-router.post('/api/add', (req, res) => {
+router.post('/todos', (req, res) => {
     // If todo name is empty send an error back.
     if (req.body.task.trim() === '') {
         res.statusMessage = 'Todo name is required.';
@@ -77,7 +57,7 @@ router.post('/api/add', (req, res) => {
 /**
  * API: update todo
  */
-router.put('/api/update', (req, res) => {
+router.put('/todos', (req, res) => {
     Todo.update(req.body, (err, data) => {
         if (err) throw err;
         res.json(data);
@@ -87,8 +67,8 @@ router.put('/api/update', (req, res) => {
 /**
  * API: delete todo
  */
-router.delete('/api/delete/:id', (req, res) => {
-    Todo.delete(req.params.id, (err, data) => {
+router.delete('/todos', (req, res) => {
+    Todo.delete(req.body.id, (err, data) => {
         if (err) throw err;
         res.json(data);
     });
