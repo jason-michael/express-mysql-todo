@@ -4,18 +4,16 @@
   "description": "Simple full stack todo app using Express, MySQL, and Pug.",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "watch": "nodemon server.js",
-    "db": "cd app/db && mysql --user root --password=root < source.txt && echo Database reset."
+    "watch": "nodemon server.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jason-michael/express-mysql-todo.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": ["todo", "express", "heroku", "mysql"],
+  "author": "Jason Michael",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/jason-michael/express-mysql-todo/issues"
   },
