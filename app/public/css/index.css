@@ -1,5 +1,28 @@
+
+body {
+    display: flex;
+    min-height: 100vh;
+    padding-top: 50px;
+    background: linear-gradient(#fff,#eee);
+    justify-content: center;
+}
+
+.main-card {
+    width: 100%;
+    height: fit-content;
+    max-width: 400px;
+    padding: 20px 0;
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 0px 0px 24px rgba(0, 0, 0, 0.2);
+}
+
+.title {
+    font-weight: lighter;
+}
+
 .container {
-    width: 50vw;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -9,7 +32,7 @@
 hr {
     height: 1px;
     background: #eee;
-    width: 400px;
+    width: 380px;
 }
 
 #addTodoBtn {
@@ -38,7 +61,7 @@ hr {
 }
 
 #newTodoField {
-    width: 400px;
+    width: 380px;
 }
 
 .taskBtn {
@@ -46,7 +69,7 @@ hr {
 }
 
 .todoItem {
-    width: 400px;
+    width: 380px;
     margin-bottom: 4px !important;
 }
 
