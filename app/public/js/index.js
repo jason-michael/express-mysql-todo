@@ -108,7 +108,7 @@ $(document).on('blur', '.editTask', function () {
         done: $(parent).attr('tododone')
     }
 
-    if (updatedTask === originalTask) return;
+    if (updatedTask === originalTask || updatedTask.trim() === '') return;
 
     updateTodo(updatedTodo, location.reload());
 });
@@ -131,7 +131,7 @@ $(document).on('keyup', '.editTask', function (e) {
         done: $(parent).attr('tododone')
     }
 
-    if (updatedTask === originalTask) return;
+    if (updatedTask === originalTask || updatedTask.trim() === '') return;
 
     updateTodo(updatedTodo, location.reload());
 });
