@@ -1,9 +1,8 @@
-
 body {
     display: flex;
     min-height: 100vh;
     padding-top: 50px;
-    background: linear-gradient(#fff,#eee);
+    background: linear-gradient(#fff, #eee);
     justify-content: center;
 }
 
